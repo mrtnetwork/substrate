@@ -4,7 +4,7 @@ An easy solution for interacting with Substrate chains using comprehensive metad
 
 
 
-Watch the example video to see how the plugin works in action.
+Watch the example video to see how the application works in action.
 
 [![Watch the video](https://img.youtube.com/vi/nxevoDqABRY/0.jpg)](https://youtu.be/nxevoDqABRY)
 
