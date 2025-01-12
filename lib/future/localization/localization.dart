@@ -173,7 +173,8 @@ class Localization {
           "payload_already_signed": "Payload already signed",
           "number_to_decimal": "10^___1__ (___2__)",
           "switching_network_please_wait": "Switching network, please wait.",
-          //   "extrinsic": "Extrinsic"
+          "api_http_client_error":
+              "ClientException: An error occurred on the client side during the request."
         }
       };
 }
