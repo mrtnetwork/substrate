@@ -5,7 +5,7 @@ An easy solution for interacting with Substrate chains using comprehensive metad
 
 ## Live Demo
 
-The live web version of the application is available on [GitHub Pages](https://your-username.github.io/your-repository-name/).
+The live web version of the application is available on [GitHub Pages](https://mrtnetwork.github.io/substrate/).
 
 
 
