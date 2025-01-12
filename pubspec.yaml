@@ -46,12 +46,12 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter  
+  msix: ^3.16.8
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -100,3 +100,14 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+msix_config:
+    display_name: Substrate
+    publisher_display_name: MRT NETWORK
+    identity_name: com.mrtnetwork.substrate
+    msix_version: 1.0.0.0
+    logo_path: D:\substrate\web\icons\Icon-192.png
+    publish_folder_path: D:\substrate\build\msix\
+    store: false
+    capabilities: internetClient
+    certificate_path: D:\mrt_wallet_key\substrate\certificate.pfx
+    certificate_password: PowerM@@2022

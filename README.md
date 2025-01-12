@@ -3,6 +3,11 @@
 An easy solution for interacting with Substrate chains using comprehensive metadata. Perform actions such as creating, signing, and sending extrinsics, querying storage, accessing runtime metadata, and more.
 
 
+## Live Demo
+
+The live web version of the application is available on [GitHub Pages](https://your-username.github.io/your-repository-name/).
+
+
 
 Watch the example video to see how the application works in action.
 
