@@ -2,6 +2,10 @@
 
 An easy solution for interacting with Substrate chains using comprehensive metadata. Perform actions such as creating, signing, and sending extrinsics, querying storage, accessing runtime metadata, and more.
 
+
+
+Watch the example video to see how the plugin works in action.
+
 [![Watch the video](https://img.youtube.com/vi/nxevoDqABRY/0.jpg)](https://youtu.be/nxevoDqABRY)
 
 
