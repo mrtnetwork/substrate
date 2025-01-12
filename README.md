@@ -2,8 +2,7 @@
 
 An easy solution for interacting with Substrate chains using comprehensive metadata. Perform actions such as creating, signing, and sending extrinsics, querying storage, accessing runtime metadata, and more.
 
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/nxevoDqABRY" frameborder="0" allowfullscreen></iframe>
+[![Watch the video](https://img.youtube.com/vi/nxevoDqABRY/0.jpg)](https://youtu.be/nxevoDqABRY)
 
 
 
