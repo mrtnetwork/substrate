@@ -174,7 +174,12 @@ class Localization {
           "number_to_decimal": "10^___1__ (___2__)",
           "switching_network_please_wait": "Switching network, please wait.",
           "api_http_client_error":
-              "ClientException: An error occurred on the client side during the request."
+              "ClientException: An error occurred on the client side during the request.",
+          "extersinc_auto_validate_desc":
+              "If you use an auto-generated value for CheckMortality and Era, ensure you click the refresh button before filling out the form. Once refreshed, you have 10 minutes to send the transaction to the network.",
+          "retrieving_finalized_block_please_wait":
+              "Retrieving the finalized block, please wait.",
+          "try_again": "Try again"
         }
       };
 }

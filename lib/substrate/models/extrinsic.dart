@@ -1,11 +1,13 @@
 import 'package:blockchain_utils/blockchain_utils.dart';
 import 'package:polkadot_dart/polkadot_dart.dart';
 
+import 'signature.dart';
+
 class ExtrinsicPayloadInfo {
   final String payload;
   final String serializedExtrinsic;
   final String payloadInfo;
-  final String? signature;
+  final SubstrateSignature? signature;
   final String method;
   ExtrinsicPayloadInfo(
       {required this.payload,
@@ -14,7 +16,7 @@ class ExtrinsicPayloadInfo {
       required this.method,
       this.signature});
 
-  ExtrinsicPayloadInfo setSignature(String? signature) {
+  ExtrinsicPayloadInfo setSignature(SubstrateSignature? signature) {
     // assert(this.signature == null);
     return ExtrinsicPayloadInfo(
         payload: payload,

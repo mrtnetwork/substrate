@@ -6,17 +6,18 @@ import 'package:substrate/future/widgets/widgets.dart';
 import 'package:substrate/substrate/models/extrinsic.dart';
 import 'package:flutter/material.dart';
 import 'package:polkadot_dart/polkadot_dart.dart';
+import 'package:substrate/substrate/models/signature.dart';
 
-enum _SiningAlgorithm {
-  ed25519(SubstrateKeyAlgorithm.ed25519),
-  secp256k1(SubstrateKeyAlgorithm.secp256k1),
-  sr25519(SubstrateKeyAlgorithm.sr25519),
-  ethereum(null);
+// enum _SiningAlgorithm {
+//   ed25519(SubstrateKeyAlgorithm.ed25519),
+//   secp256k1(SubstrateKeyAlgorithm.secp256k1),
+//   sr25519(SubstrateKeyAlgorithm.sr25519),
+//   ethereum(null);
 
-  const _SiningAlgorithm(this.algorithm);
+//   const _SiningAlgorithm(this.algorithm);
 
-  final SubstrateKeyAlgorithm? algorithm;
-}
+//   final SubstrateKeyAlgorithm? algorithm;
+// }
 
 enum _SigningMode { sign, insert }
 
@@ -34,7 +35,7 @@ class _GenerateSignatureViewState extends State<GenerateSignatureView>
     with SafeState<GenerateSignatureView> {
   final GlobalKey<PageProgressState> progressKey = GlobalKey();
   final GlobalKey<FormState> formKey = GlobalKey();
-  _SiningAlgorithm signingAlogrithm = _SiningAlgorithm.ed25519;
+  SignatureType signingAlogrithm = SignatureType.ed25519;
   _SigningMode signingMode = _SigningMode.sign;
   void toggleSigningMode(bool? _) {
     if (signingMode == _SigningMode.sign) {
@@ -67,9 +68,9 @@ class _GenerateSignatureViewState extends State<GenerateSignatureView>
     return "enter_hex_bytes".tr.replaceOne(signingAlogrithm.name);
   }
 
-  Map<_SiningAlgorithm, Text> signingAlgorithmItem = {};
+  Map<SignatureType, Text> signingAlgorithmItem = {};
 
-  void onChangeAlgorithm(_SiningAlgorithm? algorithm) {
+  void onChangeAlgorithm(SignatureType? algorithm) {
     signingAlogrithm = algorithm ?? signingAlogrithm;
     updateState();
   }
@@ -103,7 +104,7 @@ class _GenerateSignatureViewState extends State<GenerateSignatureView>
 
   Future<void> init() async {
     signingAlgorithmItem = {
-      for (final i in _SiningAlgorithm.values) i: Text(i.name.camelCase)
+      for (final i in SignatureType.values) i: Text(i.name.camelCase)
     };
     progressKey.backToIdle();
   }
@@ -114,7 +115,8 @@ class _GenerateSignatureViewState extends State<GenerateSignatureView>
         !StringUtils.isHexBytes(signature ?? '')) {
       return;
     }
-    context.pop(widget.payload.setSignature(signature!));
+    context.pop(widget.payload.setSignature(
+        SubstrateSignature(type: signingAlogrithm, signature: signature!)));
   }
 
   @override

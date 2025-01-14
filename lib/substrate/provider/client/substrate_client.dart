@@ -118,8 +118,11 @@ class SubstrateClient {
 
   Future<RuntimeMetadataInfo?> getLastestVersionedMetadata(
       int metadataVersion) async {
-    final versions = await provider
-        .request(const SubstrateRequestRuntimeMetadataGetVersions());
+    List<int> versions = [];
+    try {
+      versions = await provider
+          .request(const SubstrateRequestRuntimeMetadataGetVersions());
+    } on RPCError catch (_) {}
     List<RuntimeMetadataVersionInfo> apis = [];
     for (final i in versions) {
       if (!MetadataConstant.supportedMetadataVersion.contains(i) &&

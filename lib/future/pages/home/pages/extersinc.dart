@@ -7,6 +7,7 @@ import 'package:substrate/future/pages/quick_access/quick_access_view.dart';
 import 'package:substrate/future/pages/signature/generate_signature.dart';
 import 'package:substrate/future/state_manager/state_managment.dart';
 import 'package:substrate/future/widgets/widgets.dart';
+import 'package:substrate/future/widgets/widgets/tooltip_view.dart';
 import 'package:substrate/future/widgets/widgets/unfocusable.dart';
 import 'package:substrate/substrate/models/extrinsic.dart';
 import 'package:flutter/material.dart';
@@ -131,6 +132,71 @@ class _CreatePayload extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverMainAxisGroup(slivers: [
+      SliverPinnedHeaderSurface(
+        elevation: APPConst.elevation,
+        child: Column(
+          children: [
+            ExpansionTile(
+                initiallyExpanded: true,
+                title: Text("finaliz_block".tr),
+                children: [
+                  ContainerWithBorder(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("finaliz_block".tr,
+                                    style:
+                                        context.onPrimaryTextTheme.titleMedium),
+                                Text("quick_era".tr),
+                              ],
+                            )),
+                            TappedTooltipView(
+                              tooltipWidget: ToolTipView(
+                                message: 'extersinc_auto_validate_desc'.tr,
+                                child: Icon(Icons.help),
+                              ),
+                            ),
+                            WidgetConstant.width8,
+                            IconButton(
+                                onPressed: controller.updateFinalizBlock,
+                                icon: Icon(Icons.refresh))
+                          ],
+                        ),
+                        WidgetConstant.height8,
+                        ContainerWithBorder(
+                          backgroundColor: context.onPrimaryContainer,
+                          onRemove: () {},
+                          enableTap: false,
+                          onRemoveWidget: CopyableTextIcon(
+                            text: controller.blockWithEra!.hash,
+                            color: context.primaryContainer,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                controller.blockWithEra!.hash,
+                                style: context.primaryTextTheme.bodyMedium,
+                              ),
+                              Text(controller.blockWithEra!.era.toString(),
+                                  style: context.primaryTextTheme.bodySmall)
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ]),
+          ],
+        ),
+      ),
       ...forms.map((i) => FormField(validator: (value) {
             return i.error;
           }, builder: (context) {
@@ -257,9 +323,10 @@ class _ShowPayloadInfo extends StatelessWidget {
                         WidgetConstant.height8,
                         ContainerWithBorder(
                             child: CopyableTextWidget(
-                                text: payload.signature!,
+                                text: payload.signature!.signature,
                                 color: context.onPrimaryContainer,
-                                widget: SelectableText(payload.signature!,
+                                widget: SelectableText(
+                                    payload.signature!.signature,
                                     maxLines: 2,
                                     minLines: 1,
                                     style:

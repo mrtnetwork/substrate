@@ -90,6 +90,13 @@ abstract class MetadataFormValidator<METADATA extends MetadataTypeInfo> {
   void dispose();
 
   Object? toJson();
+
+  E? findField<E extends MetadataFormValidator<MetadataTypeInfo>>(String name) {
+    if (info.name == name && this is E) {
+      return cast<E>();
+    }
+    return null;
+  }
 }
 
 abstract class MetadataFormValidatorPromitive<T extends MetadataTypeInfo>
@@ -238,6 +245,10 @@ abstract class MetadataFormValidatorNumeric<T extends MetadataTypeInfoNumeric>
     this._value.value = value;
   }
 
+  void setInt(int value) {
+    setValue(BigRational.from(value));
+  }
+
   void setPow(int? pow) {
     if (pow == null) return;
     if (pow == maxScale) {
@@ -288,6 +299,14 @@ abstract class MetadataFormValidatorNumeric<T extends MetadataTypeInfoNumeric>
   @override
   Object? toJson() {
     return getResult();
+  }
+
+  @override
+  E? findField<E extends MetadataFormValidator<MetadataTypeInfo>>(String name) {
+    if (info.name == name && this is E) {
+      return cast<E>();
+    }
+    return null;
   }
 }
 
@@ -387,6 +406,17 @@ class MetadataFormValidatorTuple<T extends MetadataTypeInfo>
       i.dispose();
     }
   }
+
+  @override
+  E? findField<E extends MetadataFormValidator<MetadataTypeInfo>>(String name) {
+    for (final i in validators) {
+      final field = i.findField<E>(name);
+      if (field != null) {
+        return field;
+      }
+    }
+    return null;
+  }
 }
 
 class MetadataFormValidatorComposit<T extends MetadataTypeInfo>
@@ -445,6 +475,17 @@ class MetadataFormValidatorComposit<T extends MetadataTypeInfo>
         .map((e) => e.getResult())
         .where((e) => e != null)
         .toList();
+  }
+
+  @override
+  E? findField<E extends MetadataFormValidator<MetadataTypeInfo>>(String name) {
+    for (final i in validators) {
+      final field = i.findField<E>(name);
+      if (field != null) {
+        return field;
+      }
+    }
+    return null;
   }
 }
 
@@ -567,6 +608,17 @@ class MetadataFormValidatorSequence<T extends MetadataTypeInfo>
         .where((e) => e != null)
         .toList();
   }
+
+  @override
+  E? findField<E extends MetadataFormValidator<MetadataTypeInfo>>(String name) {
+    for (final i in validators) {
+      final field = i.findField<E>(name);
+      if (field != null) {
+        return field;
+      }
+    }
+    return null;
+  }
 }
 
 class MetadataFormValidatorBytes
@@ -680,7 +732,8 @@ class MetadataFormValidatorVariant
   void setVariant(
       {required Si1Variant variant, required MetadataTypeInfo type}) {
     _variant = variant;
-    _validator.value = MetadataFormValidator.fromType(type);
+    _validator.value =
+        MetadataFormValidator.fromType(type.copyWith(name: _variant?.name));
     _validator.notify();
   }
 
@@ -704,5 +757,13 @@ class MetadataFormValidatorVariant
   @override
   Object? toJson() {
     return getResult();
+  }
+
+  @override
+  E? findField<E extends MetadataFormValidator<MetadataTypeInfo>>(String name) {
+    if (info.name == name && this is E) {
+      return this as E;
+    }
+    return _validator.value?.findField<E>(name);
   }
 }

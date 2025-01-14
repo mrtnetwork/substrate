@@ -39,7 +39,7 @@ class ContainerWithBorder extends StatelessWidget {
   final CrossAxisAlignment iconAlginment;
   final DynamicVoid? onTapError;
   final BoxConstraints? constraints;
-  final IconData? errorIcon;
+  final Widget? errorIcon;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -153,7 +153,7 @@ class ErrorTextContainer extends StatelessWidget {
   final EdgeInsets verticalMargin;
   final bool showErrorIcon;
   final DynamicVoid? oTapError;
-  final IconData? errorIcon;
+  final Widget? errorIcon;
   final bool enableTap;
 
   @override
@@ -174,8 +174,8 @@ class ErrorTextContainer extends StatelessWidget {
                     : null,
                 margin: margin,
                 padding: padding,
-                onRemoveIcon: Icon(errorIcon ?? Icons.error,
-                    color: context.colors.onErrorContainer),
+                onRemoveIcon: errorIcon ??
+                    Icon(Icons.error, color: context.colors.onErrorContainer),
                 backgroundColor: context.colors.errorContainer,
                 child: Text(
                   error ?? "",

@@ -46,7 +46,6 @@ class StorageFieldsStateController extends StateController {
           fromTemplate: false);
     });
     if (r.hasError) {
-      // print(r.trace);
       progressKey.errorText(r.error!.tr,
           backToIdle: false, showBackButton: true);
     } else {

@@ -114,7 +114,6 @@ class SubstrateApi {
       MetadataTypeInfo loockup =
           api.metadata.getLookup(i.id).typeInfo(api.registry, 0);
       loockup = loockup.copyWith(name: i.name);
-
       extrinsicTypes.add(loockup);
     }
     return ExtrinsicLookupField(

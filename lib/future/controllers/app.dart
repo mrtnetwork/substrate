@@ -37,8 +37,6 @@ class APPStateController extends StateController with RepositoryStorage {
   Future<LatestChain> _initChains() async {
     final lastChain = await latestChain();
     final importedChains = await loadChains();
-    // print(StringUtils.fromJson(APPConst.defaultNetwork.toJson()));
-
     _chains = [
       ...importedChains,
       ...defaultChains.map((e) => NetworkInfo.fromJson(e)),

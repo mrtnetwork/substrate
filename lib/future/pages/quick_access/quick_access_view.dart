@@ -10,6 +10,7 @@ import 'package:substrate/future/widgets/widgets/tile.dart';
 import 'package:substrate/substrate/api/api.dart';
 import 'package:flutter/material.dart';
 import 'package:polkadot_dart/polkadot_dart.dart';
+import 'package:substrate/substrate/provider/client/models/block_with_era.dart';
 
 import 'runtime_apis.dart';
 import 'storage.dart';
@@ -25,7 +26,15 @@ class _QuickAccessViewState extends State<QuickAccessView>
     with SafeState<QuickAccessView> {
   late final APPStateController stateController;
   SubstrateApi get api => stateController.substrate;
+  GlobalKey finalizBlockKey = GlobalKey();
   StorageInfo? accountInfoKey;
+  late Future<BlockHashWithEra> finalizBlock = api.client.blockWithEra();
+
+  void refreshFinalizeBlock() {
+    finalizBlock = api.client.blockWithEra();
+    finalizBlockKey = GlobalKey();
+    updateState();
+  }
 
   @override
   void onInitOnce() {
@@ -86,31 +95,8 @@ class _QuickAccessViewState extends State<QuickAccessView>
                 ),
               WidgetConstant.divider,
               APPFutureBuilder(
+                  key: finalizBlockKey,
                   onData: (context, result) {
-                    final blockHash = result.toHex();
-                    return CopyableTextWidget(
-                        text: blockHash,
-                        widget: AppListTile(
-                            subtitle: Text(blockHash),
-                            title: Text("block_hash".tr,
-                                style: context.textTheme.titleMedium)));
-                  },
-                  onError: (context, err) {
-                    return AppListTile(
-                        title: Text("block_hash".tr),
-                        trailing: Tooltip(
-                            message: err.toString(),
-                            child: WidgetConstant.errorIcon));
-                  },
-                  onProgress: (context) {
-                    return AppListTile(
-                        title: Text("block_hash".tr),
-                        trailing: const APPCircularProgressIndicator());
-                  },
-                  future: api.client.getBlockHash()),
-              APPFutureBuilder(
-                  onData: (context, result) {
-                    // final blockHash = result.toHex();
                     return Column(
                       children: [
                         CopyableTextWidget(
@@ -131,16 +117,18 @@ class _QuickAccessViewState extends State<QuickAccessView>
                   onError: (context, err) {
                     return AppListTile(
                         title: Text("finaliz_block_era".tr),
-                        trailing: Tooltip(
-                            message: err.toString(),
-                            child: WidgetConstant.errorIcon));
+                        trailing: IconButton(
+                            tooltip: err.toString(),
+                            onPressed: refreshFinalizeBlock,
+                            icon: Icon(Icons.error,
+                                color: context.colors.error)));
                   },
                   onProgress: (context) {
                     return AppListTile(
                         title: Text("finaliz_block_era".tr),
                         trailing: const APPCircularProgressIndicator());
                   },
-                  future: api.client.blockWithEra()),
+                  future: finalizBlock),
               CopyableTextWidget(
                   text: api.gnesisBlock,
                   widget: AppListTile(
