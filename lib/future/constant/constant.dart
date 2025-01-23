@@ -8,23 +8,6 @@ class APPConst {
   static const String repositoryPage =
       "https://github.com/mrtnetwork/substrate";
   static String defaultChain = "Polkadot";
-  // static final NetworkInfo defaultNetwork =
-  //     NetworkInfo(name: "Polkadot", rpcEndpoints: {
-  //   const RpcEndpoint(name: "polkadot.io", url: "wss://rpc.polkadot.io"),
-  //   const RpcEndpoint(
-  //       name: "Stakeworld", url: "wss://dot-rpc.stakeworld.io:443"),
-  //   const RpcEndpoint(
-  //       name: "Radium Block",
-  //       url: "wss://polkadot.public.curie.radiumblock.co:443/ws"),
-  //   const RpcEndpoint(
-  //       name: "OnFinality",
-  //       url: "wss://polkadot.api.onfinality.io:443/public-ws"),
-  //   const RpcEndpoint(
-  //       name: "LuckyFriday", url: "wss://rpc-polkadot.luckyfriday.io:443"),
-  //   const RpcEndpoint(
-  //       name: "Dwellir Tunisia", url: "wss://polkadot-rpc-tn.dwellir.com:443")
-  // });
-
   static const Duration animationDuraion = Duration(milliseconds: 400);
   static const Duration milliseconds100 = Duration(milliseconds: 100);
   static const Duration oneSecoundDuration = Duration(seconds: 1);

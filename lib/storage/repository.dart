@@ -4,7 +4,7 @@ import 'package:substrate/substrate/models/chains.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class _RepositoryStorageConst {
-  static const String chainsKey = 'chains_';
+  static const String chainsKey = 'chains';
   static const String config = 'config_';
   static const String latestChain = 'lastestChain';
 }
@@ -61,7 +61,7 @@ mixin RepositoryStorage {
         value: StringUtils.fromJson(config.toJson()));
   }
 
-  Future<void> saveChains(List<NetworkInfo> chains) async {
+  Future<void> saveChains(Set<NetworkInfo> chains) async {
     await writeStorage(
         key: _RepositoryStorageConst.chainsKey,
         value: StringUtils.fromJson(chains.map((e) => e.toJson()).toList()));

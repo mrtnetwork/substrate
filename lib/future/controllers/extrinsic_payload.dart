@@ -233,6 +233,26 @@ class ExtrinsicPayloadFieldsStateController extends StateController {
     // progressKey.backToIdle();
   }
 
+  Future<void> updateFinalizBlock() async {
+    progressKey.progressText("retrieving_finalized_block_please_wait".tr);
+    final r = await MethodUtils.call(() async {
+      return api.client.blockWithEra();
+    });
+    if (r.hasError) {
+      progressKey.errorText(r.error!.tr,
+          backToIdle: false,
+          showBackButton: _blockWithEra == null ? false : true,
+          button: _blockWithEra == null
+              ? FixedElevatedButton(
+                  onPressed: updateFinalizBlock, child: Text("try_again".tr))
+              : null);
+    } else {
+      _blockWithEra = r.result;
+      _filledEra();
+      progressKey.backToIdle();
+    }
+  }
+
   E? _getPayloadField<E extends MetadataFormValidator>(String name) {
     try {
       for (final i in extrinsicPayloadValidators) {
@@ -308,26 +328,6 @@ class ExtrinsicPayloadFieldsStateController extends StateController {
     }
   }
 
-  Future<void> updateFinalizBlock() async {
-    progressKey.progressText("retrieving_finalized_block_please_wait".tr);
-    final r = await MethodUtils.call(() async {
-      return api.client.blockWithEra();
-    });
-    if (r.hasError) {
-      progressKey.errorText(r.error!.tr,
-          backToIdle: false,
-          showBackButton: _blockWithEra == null ? false : true,
-          button: _blockWithEra == null
-              ? FixedElevatedButton(
-                  onPressed: updateFinalizBlock, child: Text("try_again".tr))
-              : null);
-    } else {
-      _blockWithEra = r.result;
-      _filledEra();
-      progressKey.backToIdle();
-    }
-  }
-
   void _filledEra() {
     final finalizedBlock = _blockWithEra;
     if (finalizedBlock == null) return;
@@ -347,7 +347,6 @@ class ExtrinsicPayloadFieldsStateController extends StateController {
   }
 
   Future<void> _filedPayloadFields() async {
-    // final r = await MethodUtils.call(() => api.client.blockWithEra());
     _getPayloadField<MetadataFormValidatorInt>("CheckTxVersion")
         ?.setInt(api.runtimeVersion.transactionVersion);
     _getPayloadField<MetadataFormValidatorInt>("CheckSpecVersion")

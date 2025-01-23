@@ -77,13 +77,13 @@ class SubstrateApi {
     if (extrinsic.addressType != null) {
       MetadataTypeInfo loockup = api.metadata
           .getLookup(extrinsic.addressType!)
-          .typeInfo(api.registry, 0);
+          .typeInfo(api.registry, extrinsic.addressType!);
       address = loockup.copyWith(name: "Address");
     }
     if (extrinsic.signatureType != null) {
       MetadataTypeInfo loockup = api.metadata
           .getLookup(extrinsic.signatureType!)
-          .typeInfo(api.registry, 0);
+          .typeInfo(api.registry, extrinsic.signatureType!);
       signature = loockup.copyWith(name: "Signature");
     }
     MetadataTypeInfo call;
@@ -99,23 +99,25 @@ class SubstrateApi {
       call = MetadataTypeInfoVariant(
           variants: variants.toList(), typeId: -1, name: "Call");
     } else {
-      MetadataTypeInfo loockup =
-          api.metadata.getLookup(extrinsic.callType!).typeInfo(api.registry, 0);
+      MetadataTypeInfo loockup = api.metadata
+          .getLookup(extrinsic.callType!)
+          .typeInfo(api.registry, extrinsic.callType!);
       call = loockup.copyWith(name: "Call");
     }
 
     for (final i in extrinsic.payloadExtrinsic) {
       MetadataTypeInfo loockup =
-          api.metadata.getLookup(i.id).typeInfo(api.registry, 0);
-      loockup = loockup.copyWith(name: i.name);
+          api.metadata.getLookup(i.id).typeInfo(api.registry, i.id);
+      loockup = loockup.copyWith(name: i.name, typeId: i.id);
       payloadTypes.add(loockup);
     }
     for (final i in extrinsic.extrinsic) {
       MetadataTypeInfo loockup =
-          api.metadata.getLookup(i.id).typeInfo(api.registry, 0);
+          api.metadata.getLookup(i.id).typeInfo(api.registry, i.id);
       loockup = loockup.copyWith(name: i.name);
       extrinsicTypes.add(loockup);
     }
+
     return ExtrinsicLookupField(
         call: call,
         extrinsicValidators: extrinsicTypes,
@@ -134,3 +136,7 @@ class SubstrateApi {
     _chain = _chain.copyWith(metadataVersion: runtimeMetadata.version);
   }
 }
+
+// abstract class SubstrateExtersincPayload {
+
+// }

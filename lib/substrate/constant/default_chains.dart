@@ -234,7 +234,7 @@ const List<Map<String, dynamic>> defaultChains = [
         "url": "wss://khala.api.onfinality.io:443/public-ws"
       },
       {"name": "Phala", "url": "wss://khala-api.phala.network:443/ws"},
-      {"name": "Pinknode", "url": "wss://public-rpc.pinknode.io:443/khala"}
+      {"name": "Onfinality", "url": "wss://phala.api.onfinality.io/public-ws"}
     ]
   },
   {
@@ -388,11 +388,7 @@ const List<Map<String, dynamic>> defaultChains = [
     "network_type": "mainnet",
     "specs": {"decimals": 12, "token": "PHA", "ss58_format": 30},
     "rpc_endpoints": [
-      {
-        "name": "OnFinality",
-        "url": "wss://phala.api.onfinality.io:443/public-ws"
-      },
-      {"name": "Phala", "url": "wss://api.phala.network:443/ws"}
+      {"name": "OnFinality", "url": "wss://phala.api.onfinality.io/public-ws"},
     ]
   },
   {

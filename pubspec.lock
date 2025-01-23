@@ -29,10 +29,10 @@ packages:
     dependency: "direct main"
     description:
       name: blockchain_utils
-      sha256: d25cf2ebfa340c5261e77bc0b960f97529c283160d1b9b4f63f3015816369d9f
+      sha256: "7d0a1a3df35e75433486c5967073be4dda19efb9232a5233e1558fa522405df7"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -385,10 +385,10 @@ packages:
     dependency: "direct main"
     description:
       name: polkadot_dart
-      sha256: "76e7a65b12722c614ddca769053937071ebb8b132cdeebe30038b43b505ec5f9"
+      sha256: "736acfb851bcd7a63163b5d14e6d7b5e8a2f9712d90f87d97f9eaec3ebd09392"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.0"
   posix:
     dependency: transitive
     description:

@@ -69,7 +69,7 @@ class SubstrateClient {
   SubstrateBlockHash get genesisBlock => _genesis!;
 
   Future<int> getNonce(SubstrateAddress address) async {
-    final storage = await api.getAccountInfo(address: address, rpc: provider);
+    final storage = await api.getAccount(address: address, rpc: provider);
     return storage.nonce;
   }
 

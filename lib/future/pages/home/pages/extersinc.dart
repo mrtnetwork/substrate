@@ -7,7 +7,6 @@ import 'package:substrate/future/pages/quick_access/quick_access_view.dart';
 import 'package:substrate/future/pages/signature/generate_signature.dart';
 import 'package:substrate/future/state_manager/state_managment.dart';
 import 'package:substrate/future/widgets/widgets.dart';
-import 'package:substrate/future/widgets/widgets/tooltip_view.dart';
 import 'package:substrate/future/widgets/widgets/unfocusable.dart';
 import 'package:substrate/substrate/models/extrinsic.dart';
 import 'package:flutter/material.dart';

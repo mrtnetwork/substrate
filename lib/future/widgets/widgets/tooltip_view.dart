@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:substrate/future/state_manager/state_managment.dart';
-import 'package:substrate/future/state_manager/typdef/typedef.dart';
 
 class TappedTooltipView extends StatefulWidget {
   const TappedTooltipView(

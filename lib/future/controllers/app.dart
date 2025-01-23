@@ -27,22 +27,23 @@ class APPStateController extends StateController with RepositoryStorage {
   NetworkInfo? get currentNetwork => _substrate?.networkInfo;
   RpcEndpoint? get currentEndpoint => _substrate?.endpoint;
   bool get inited => _substrate != null;
-  List<NetworkInfo> _importedChains = const [];
   Set<NetworkInfo> _chains = const {};
   Set<NetworkInfo> get chains => _chains;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  final defaults = defaultChains.map((e) => NetworkInfo.fromJson(e)).toList();
   final _lock = SynchronizedLock();
 
   Future<LatestChain> _initChains() async {
     final lastChain = await latestChain();
-    final importedChains = await loadChains();
-    _chains = [
-      ...importedChains,
-      ...defaultChains.map((e) => NetworkInfo.fromJson(e)),
-    ].toImutableSet;
-    NetworkInfo currentChain =
-        _chains.firstWhere((e) => e.name == APPConst.defaultChain);
+    List<NetworkInfo> importedChains = await loadChains();
+    if (importedChains.isEmpty) {
+      importedChains =
+          defaultChains.map((e) => NetworkInfo.fromJson(e)).toList();
+      await saveChains(importedChains.toSet());
+    }
+    _chains = importedChains.toImutableSet;
+    NetworkInfo currentChain = _chains.firstWhere(
+        (e) => e.name == APPConst.defaultChain,
+        orElse: () => _chains.first);
     RpcEndpoint currentRpc = currentChain.rpcEndpoints.first;
     int version = APPConst.defaultMetadataVersion;
     if (lastChain != null) {
@@ -80,6 +81,9 @@ class APPStateController extends StateController with RepositoryStorage {
       notify();
       pageProgress.success();
     }
+    // await _lock.synchronized(() async {
+
+    // });
   }
 
   final Cancelable _cancelable = Cancelable();
@@ -153,11 +157,8 @@ class APPStateController extends StateController with RepositoryStorage {
             LatestChain(network: chain, endpoint: endpoint));
       });
       sub.result.close();
-
-      final updateChains = [..._importedChains, chain];
-      _importedChains = updateChains;
       _chains = [chain, ..._chains].toImutableSet;
-      await saveChains(updateChains);
+      await saveChains(_chains);
       notify();
     });
   }

@@ -80,7 +80,7 @@ class _GenerateSignatureViewState extends State<GenerateSignatureView>
     final payload = BytesUtils.fromHexString(widget.payload.payload);
     switch (signingAlogrithm.algorithm) {
       case null:
-        return MoonbeamPrivateKey.fromBytes(keyBytes).sign(payload).toBytes();
+        return SubstrateEthereumPrivateKey.fromBytes(keyBytes).sign(payload);
       default:
         return SubstratePrivateKey.fromPrivateKey(
                 keyBytes: keyBytes, algorithm: signingAlogrithm.algorithm!)

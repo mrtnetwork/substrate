@@ -52,11 +52,11 @@ abstract class MetadataFormValidator<METADATA extends MetadataTypeInfo> {
               type.types.map((e) => MetadataFormValidator.fromType(e)).toList(),
         );
         break;
-      case MetadataTypes.compact:
-        final type = info.cast<MetadataTypeInfoCompact>();
-        validator = MetadataFormValidator.fromType(
-            type.type.copyWith(name: type.type.name ?? type.name));
-        break;
+      // case MetadataTypes.compact:
+      //   final type = info.cast<MetadataTypeInfoCompact>();
+      //   validator = MetadataFormValidator.fromType(
+      //       type.type.copyWith(name: type.type.name ?? type.name));
+      //   break;
       case MetadataTypes.tuple:
         final type = info.cast<MetadataTypeInfoTuple>();
         validator = MetadataFormValidatorTuple(
@@ -497,7 +497,6 @@ enum ArrayFieldType {
     switch (type.typeName) {
       case MetadataTypes.bigInt:
       case MetadataTypes.int:
-      case MetadataTypes.compact:
         final promitiveType = type.cast<MetadataTypeInfoPromitive>();
         if (promitiveType.primitiveType == PrimitiveTypes.u8) {
           return ArrayFieldType.bytes;

@@ -39,9 +39,9 @@ environment:
 dependencies:
   http: ^1.2.2
   url_launcher: ^6.3.1
-  blockchain_utils: ^4.0.0
+  blockchain_utils: ^4.0.1
   flutter_secure_storage: ^9.2.3
-  polkadot_dart: ^3.0.0
+  polkadot_dart: ^3.1.0
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -109,5 +109,3 @@ msix_config:
     publish_folder_path: D:\substrate\build\msix\
     store: false
     capabilities: internetClient
-    certificate_path: D:\mrt_wallet_key\substrate\certificate.pfx
-    certificate_password: PowerM@@2022

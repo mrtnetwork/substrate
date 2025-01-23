@@ -23,3 +23,4 @@ export 'widgets/scroll_config.dart';
 export 'widgets/string_wirter.dart';
 export 'widgets/text_field.dart';
 export 'widgets/tile.dart';
+export 'widgets/tooltip_view.dart';
